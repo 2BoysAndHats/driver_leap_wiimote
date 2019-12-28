@@ -16,7 +16,6 @@
     <ClCompile Include="CDriverConfig.cpp" />
     <ClCompile Include="CControllerButton.cpp" />
     <ClCompile Include="CLeapHandControllerVive.cpp" />
-    <ClCompile Include="CLeapHandControllerIndex.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utils.h" />
@@ -27,7 +26,6 @@
     <ClInclude Include="CDriverConfig.h" />
     <ClInclude Include="CControllerButton.h" />
     <ClInclude Include="CLeapHandControllerVive.h" />
-    <ClInclude Include="CLeapHandControllerIndex.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="vendor">

@@ -72,7 +72,7 @@ const std::vector<std::string> g_orientationMode
 };
 const std::vector<std::string> g_emulatedControllersTable
 {
-    "vive", "index"
+    "vive"
 };
 const std::vector<std::string> g_trackingLevelsTable
 {

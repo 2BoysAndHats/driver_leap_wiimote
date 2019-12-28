@@ -226,7 +226,6 @@
     <ClInclude Include="CControllerButton.h" />
     <ClInclude Include="CDriverConfig.h" />
     <ClInclude Include="CLeapHandController.h" />
-    <ClInclude Include="CLeapHandControllerIndex.h" />
     <ClInclude Include="CLeapHandControllerVive.h" />
     <ClInclude Include="CServerDriver.h" />
     <ClInclude Include="CDriverLog.h" />
@@ -244,7 +243,6 @@
     <ClCompile Include="CControllerButton.cpp" />
     <ClCompile Include="CDriverConfig.cpp" />
     <ClCompile Include="CLeapHandController.cpp" />
-    <ClCompile Include="CLeapHandControllerIndex.cpp" />
     <ClCompile Include="CLeapHandControllerVive.cpp" />
     <ClCompile Include="CServerDriver.cpp" />
     <ClCompile Include="CDriverLog.cpp" />

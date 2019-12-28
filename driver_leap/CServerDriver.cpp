@@ -3,7 +3,6 @@
 #include "CDriverConfig.h"
 #include "CDriverLog.h"
 #include "CLeapHandControllerVive.h"
-#include "CLeapHandControllerIndex.h"
 
 extern char g_moduleFilePath[];
 
@@ -57,9 +56,6 @@ vr::EVRInitError CServerDriver::Init(vr::IVRDriverContext *pDriverContext)
                 case CDriverConfig::EC_Vive:
                     l_controller = new CLeapHandControllerVive(CLeapHandController::CHA_Left);
                     break;
-                case CDriverConfig::EC_Index:
-                    l_controller = new CLeapHandControllerIndex(CLeapHandController::CHA_Left);
-                    break;
             }
             if(m_driverHost && l_controller)
             {
@@ -74,9 +70,6 @@ vr::EVRInitError CServerDriver::Init(vr::IVRDriverContext *pDriverContext)
             {
                 case CDriverConfig::EC_Vive:
                     l_controller = new CLeapHandControllerVive(CLeapHandController::CHA_Right);
-                    break;
-                case CDriverConfig::EC_Index:
-                    l_controller = new CLeapHandControllerIndex(CLeapHandController::CHA_Right);
                     break;
             }
             if(m_driverHost && l_controller)
