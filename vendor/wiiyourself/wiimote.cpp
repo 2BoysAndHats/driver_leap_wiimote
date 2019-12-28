@@ -20,6 +20,7 @@
 #endif // _MSC_VER
 
 #include "wiimote.h"
+#include "stdafx.h"
 #include <setupapi.h>
 extern "C" {
 # ifdef __MINGW32__
