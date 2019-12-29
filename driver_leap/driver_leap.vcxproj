@@ -179,14 +179,14 @@
     <ClCompile>
       <PrecompiledHeader>Create</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <AdditionalIncludeDirectories>./;../vendor/LeapCxx/include;../vendor/openvr/headers;../vendor/pugixml/src;../vendor/glm;../shared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;../vendor/LeapCxx/include;../vendor/openvr/headers;../vendor/pugixml/src;../vendor/glm;../shared;../vendor/wiiuse/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
       <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
-      <AdditionalLibraryDirectories>..\vendor\LeapSDK\lib\x64;..\vendor\LeapCxx\lib\win64;..\vendor\openvr\lib\win64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\vendor\LeapSDK\lib\x64;..\vendor\LeapCxx\lib\win64;..\vendor\openvr\lib\win64;..\vendor\wiiuse\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>LeapC.lib;LeapC++_d.lib;openvr_api.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
