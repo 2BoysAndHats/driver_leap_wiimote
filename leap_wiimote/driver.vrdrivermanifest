@@ -1,0 +1,6 @@
+{
+	"alwaysActivate": true,
+	"name" : "leap_wiimote",
+	"directory" : "",
+	"resourceOnly" : false
+}

@@ -4,6 +4,7 @@
 #include "CDriverConfig.h"
 #include "CGestureMatcher.h"
 #include "Utils.h"
+#include "wiiuse.h"
 
 extern char g_moduleFileName[];
 
@@ -180,13 +181,15 @@ void CLeapHandController::SetConnectionState(bool f_state)
     }
 }
 
-void CLeapHandController::Update(const Leap::Frame &f_frame)
+void CLeapHandController::Update(const Leap::Frame &f_frame, wiimote** wiimotes)
+//void CLeapHandController::Update(const Leap::Frame &f_frame)
 {
     if(m_trackedDeviceID != vr::k_unTrackedDeviceIndexInvalid)
     {
         UpdateTransformation(f_frame);
-        UpdateGestures(f_frame);
-        UpdateInput();
+        //UpdateGestures(f_frame);
+		UpdateWiimote(wiimotes);
+		UpdateInput();
     }
 }
 

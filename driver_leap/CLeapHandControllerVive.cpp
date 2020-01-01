@@ -3,6 +3,8 @@
 #include "CControllerButton.h"
 #include "CDriverConfig.h"
 #include "CGestureMatcher.h"
+#include "CDriverLog.h"
+#include "wiiuse.h"
 
 enum EViveButton : size_t
 {
@@ -225,6 +227,42 @@ void CLeapHandControllerVive::UpdateGestures(const Leap::Frame &f_frame)
             } break;
         }
     }
+}
+
+void CLeapHandControllerVive::UpdateWiimote(wiimote** wiimotes)
+{
+	// grab the right wiimote - 0 for left hand, 1 for the right hand
+	wiimote* mote;
+	if (m_handAssigment == CHA_Left)
+	{
+		mote = wiimotes[0];
+	}
+	else{
+		mote = wiimotes[1];
+	}
+
+	m_buttons[VB_SysClick]->SetState(IS_PRESSED(mote, WIIMOTE_BUTTON_ONE));
+	m_buttons[VB_AppMenuClick]->SetState(IS_PRESSED(mote, WIIMOTE_BUTTON_HOME));
+
+	m_buttons[VB_TriggerClick]->SetState(IS_PRESSED(mote, WIIMOTE_BUTTON_B));
+	m_buttons[VB_TriggerValue]->SetValue(IS_PRESSED(mote, WIIMOTE_BUTTON_B));
+
+	m_buttons[VB_GripClick]->SetState(IS_PRESSED(mote, WIIMOTE_BUTTON_A));
+
+	// grab trackpad values
+	float trackpadX = 0;
+	float trackpadY = 0;
+
+	if (IS_PRESSED(mote, WIIMOTE_BUTTON_LEFT)) trackpadX = -1;
+	if (IS_PRESSED(mote, WIIMOTE_BUTTON_RIGHT)) trackpadX = 1;
+	if (IS_PRESSED(mote, WIIMOTE_BUTTON_DOWN)) trackpadY = -1;
+	if (IS_PRESSED(mote, WIIMOTE_BUTTON_UP)) trackpadY = 1;
+
+	m_buttons[VB_TrackpadX]->SetValue(trackpadX);
+	m_buttons[VB_TrackpadY]->SetValue(trackpadY);
+		
+	m_buttons[VB_TrackpadTouch]->SetState(((trackpadX != 0) || (trackpadY != 0)) || IS_PRESSED(mote, WIIMOTE_BUTTON_MINUS));
+	m_buttons[VB_TrackpadClick]->SetState(IS_PRESSED(mote, WIIMOTE_BUTTON_PLUS));
 }
 
 bool CLeapHandControllerVive::MixHandState(bool f_state)

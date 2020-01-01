@@ -1,5 +1,7 @@
 #pragma once
 
+#include "wiiuse.h"
+
 class CControllerButton;
 
 class CLeapHandController : public vr::ITrackedDeviceServerDriver
@@ -38,7 +40,8 @@ public:
 
     inline const std::string& GetSerialNumber() const { return m_serialNumber; }
     void SetConnectionState(bool f_state);
-    void Update(const Leap::Frame& f_frame);
+	void Update(const Leap::Frame& f_frame, wiimote** wiimotes);
+	//void Update(const Leap::Frame& f_frame);
 
     static void SetInterfaces(vr::IVRServerDriverHost *f_host, vr::IVRDriverInput *f_input, vr::CVRPropertyHelpers *f_helpers);
     static void UpdateHMDCoordinates();
@@ -63,7 +66,8 @@ protected:
         bool m_vrchatDrawingMode = false;
     } m_gameSpecialModes;
 
-    virtual void UpdateGestures(const Leap::Frame &f_frame) = 0;
+    //virtual void UpdateGestures(const Leap::Frame &f_frame) = 0;
+	virtual void UpdateWiimote(wiimote** wiimote) = 0;
     virtual void UpdateInputInternal() {}
     virtual bool MixHandState(bool f_state);
 

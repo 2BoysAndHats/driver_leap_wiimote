@@ -37,7 +37,6 @@ public:
     enum EmulatedController : unsigned char
     {
         EC_Vive = 0U,
-        EC_Index
     };
     enum OrientationMode : unsigned char
     {

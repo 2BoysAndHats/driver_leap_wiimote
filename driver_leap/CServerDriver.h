@@ -1,5 +1,7 @@
 #pragma once
 
+#include "wiiuse.h"
+
 class CLeapHandController;
 
 class CLeapListener final : public Leap::Listener
@@ -20,6 +22,8 @@ class CServerDriver final : public vr::IServerTrackedDeviceProvider
     Leap::Controller *m_leapController;
     CLeapListener m_leapListener;
     bool m_controllerState;
+	
+	wiimote** wiimotes;
 
     void LaunchLeapMonitor();
 

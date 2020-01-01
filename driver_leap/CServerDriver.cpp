@@ -3,6 +3,7 @@
 #include "CDriverConfig.h"
 #include "CDriverLog.h"
 #include "CLeapHandControllerVive.h"
+#include "wiiuse.h"
 
 extern char g_moduleFilePath[];
 
@@ -48,6 +49,17 @@ vr::EVRInitError CServerDriver::Init(vr::IVRDriverContext *pDriverContext)
         m_driverHost = vr::VRServerDriverHost();
         CLeapHandController::SetInterfaces(m_driverHost, vr::VRDriverInput(), vr::VRProperties());
 
+		// attempt to grab two wiimotes - if we can't, exit gracefully
+		wiimotes = wiiuse_init(2); // initalize wiimotes - we need two of them
+
+		int found = wiiuse_find(wiimotes, 2, 5); // five second discovery timeout
+		if (found == 2) {
+			// attempt to connect to the found wiimotes. wiiuse_connect returns a boolean of whether or not the operation was successful
+			if (!wiiuse_connect(wiimotes, 2)) {
+				return vr::VRInitError_Driver_NotLoaded;
+			}
+		}
+
         if(CDriverConfig::IsLeftHandEnabled())
         {
             CLeapHandController *l_controller = nullptr;
@@ -78,6 +90,10 @@ vr::EVRInitError CServerDriver::Init(vr::IVRDriverContext *pDriverContext)
                 m_driverHost->TrackedDeviceAdded(l_controller->GetSerialNumber().c_str(), vr::ETrackedDeviceClass::TrackedDeviceClass_Controller, l_controller);
             }
         }
+
+		wiiuse_set_leds(wiimotes[0], 0x50);
+		wiiuse_set_leds(wiimotes[1], 0xA0);
+		CDriverLog::Log("Two wiimotes found!\n");
 
         m_leapController = new Leap::Controller();
         m_leapController->addListener(m_leapListener);
@@ -126,6 +142,7 @@ void CServerDriver::RunFrame()
     CLeapHandController::UpdateHMDCoordinates();
     if(m_leapController)
     {
+
         bool l_controllerState = m_leapController->isConnected();
         if(m_controllerState != l_controllerState)
         {
@@ -135,10 +152,13 @@ void CServerDriver::RunFrame()
         if(m_controllerState)
         {
             Leap::Frame l_frame = m_leapController->frame();
+			wiiuse_poll(wiimotes, 2);
+
             if(l_frame.isValid())
             {
-                for(auto l_handController : m_handControllers) l_handController->Update(l_frame);
-            }
+				for(auto l_handController : m_handControllers) l_handController->Update(l_frame, wiimotes);
+				//for (auto l_handController : m_handControllers) l_handController->Update(l_frame);
+			}
         }
     }
 }
